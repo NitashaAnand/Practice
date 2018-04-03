@@ -4,10 +4,14 @@ import java.util.List;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanNameAware;
+import org.springframework.beans.factory.DisposableBean;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 
-public class Triangle implements ApplicationContextAware,BeanNameAware {
+public class Triangle implements ApplicationContextAware,BeanNameAware,InitializingBean,DisposableBean,Shape {
+	
+	/*public class Triangle implements ApplicationContextAware,BeanNameAware {*/
 	
 	/*private String type;
 	
@@ -16,10 +20,10 @@ public class Triangle implements ApplicationContextAware,BeanNameAware {
 	private Point pointA;
 	
 	//private ApplicationContext context=null;
-	/*private Point pointB;
+	private Point pointB;
 	private Point pointC;
-	*/
-	/*private List<Point> points;*/
+	
+	private List<Point> points;
 	
 	
 	
@@ -32,16 +36,16 @@ public class Triangle implements ApplicationContextAware,BeanNameAware {
 		return pointA;
 	}
 
-	public Triangle(Point pointA) {
+	/*public Triangle(Point pointA) {
 		super();
 		this.pointA = pointA;
-	}
+	}*/
 
 	public void setPointA(Point pointA) {
 		this.pointA = pointA;
 	}
 
-	/*public Point getPointB() {
+	public Point getPointB() {
 		return pointB;
 	}
 
@@ -55,7 +59,7 @@ public class Triangle implements ApplicationContextAware,BeanNameAware {
 
 	public void setPointC(Point pointC) {
 		this.pointC = pointC;
-	}*/
+	}
 
 	/**
 	 * @return the height
@@ -87,7 +91,7 @@ public class Triangle implements ApplicationContextAware,BeanNameAware {
 	}*/
 
 
-	/*public List<Point> getPoints() {
+	public List<Point> getPoints() {
 		return points;
 	}
 
@@ -95,7 +99,7 @@ public class Triangle implements ApplicationContextAware,BeanNameAware {
 
 	public void setPoints(List<Point> points) {
 		this.points = points;
-	}*/
+	}
 
 
 
@@ -110,14 +114,15 @@ public class Triangle implements ApplicationContextAware,BeanNameAware {
 	public void draw() {
 		
 		//System.out.println(getType() + " Triangle drawn of height " + getHeight());
-		System.out.println("Point A =(" + getPointA().getX() + "," + getPointA().getY() + ")");
-	/*	System.out.println("Point B =(" + getPointB().getX() + "," + getPointB().getY() + ")");
+		/*System.out.println("Point A =(" + getPointA().getX() + "," + getPointA().getY() + ")");
+		System.out.println("Point B =(" + getPointB().getX() + "," + getPointB().getY() + ")");
 		System.out.println("Point C =(" + getPointC().getX() + "," + getPointC().getY() + ")");*/
 		
-		/*for(Point point:points)
+		for(Point point:points)
 		{
 			System.out.println("Point =(" + point.getX() + "," + point.getY() + ")");
-		}*/
+		}
+		
 	}
 
 	@Override
@@ -134,5 +139,30 @@ public class Triangle implements ApplicationContextAware,BeanNameAware {
 		System.out.println("Bean name is:" +beanName);
 		
 	}
+
+	@Override
+	public void afterPropertiesSet() throws Exception {
+		// TODO Auto-generated method stub
+		System.out.println("Intializing Bean init method called for Triangle");
+		
+	}
+
+	@Override
+	public void destroy() throws Exception {
+		// TODO Auto-generated method stub
+		System.out.println("Disposable Bean destroy method called for Triangle");
+		
+	}
+	
+	public void myInit()
+	{
+		System.out.println("My Init method is called for Triangle");
+	}
+	
+	public void cleanUp()
+	{
+		System.out.println("My Destroy method for cleanup is called for Triangle");
+	}
+
 
 }

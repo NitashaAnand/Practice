@@ -1,43 +1,91 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"
+	xmlns:context="http://www.springframework.org/schema/context">
+	
+	
 
-<beans>
+<!-- <beans default-init-method="myInit"  default-destroy-method="cleanUp"> -->
+
+	<!-- <bean id="parenttriangle" class="org.springpractice.test.Triangle">
+		<property name="pointA" ref="pointA"/>
+	</bean> -->
+	
+	
+	<!-- <bean id="parenttriangle" class="org.springpractice.test.Triangle" abstract="true">
+		<property name="points">
+			<list>
+				<ref bean="pointA"/>
+			</list>
+		</property>
+	</bean> -->
+	
+	
 	<!-- <bean id="triangle" class="org.springpractice.test.Triangle" name="triangle-name" autowire="byName"> -->
 <!-- 	<bean id="triangle" class="org.springpractice.test.Triangle" name="triangle-name" autowire="byType"> -->
 	<!-- <bean id="triangle" class="org.springpractice.test.Triangle" name="triangle-name" autowire="constructor"> -->
 	<!-- <bean id="triangle" class="org.springpractice.test.Triangle" name="triangle-name" autowire="constructor" scope="singleton"> -->
-	<bean id="triangle" class="org.springpractice.test.Triangle" name="triangle-name" autowire="constructor" scope="prototype">
-		<!-- <property name="type" value="Equilateral"></property> -->
-		<!-- <constructor-arg value="Equilateral"></constructor-arg> -->
-		<!-- <constructor-arg type="int" value="20"></constructor-arg> -->
-		<!-- <constructor-arg type="java.lang.String" value="20"></constructor-arg> -->
-		<!-- <constructor-arg index="0" value="20"></constructor-arg>
-		<constructor-arg index="1" value="20"></constructor-arg> -->
-		<!--  <property name="pointA" ref="point1"/>
+<!-- 	<bean id="triangle" class="org.springpractice.test.Triangle" name="triangle-name" > -->
+	<!-- <bean id="shape" class="org.springpractice.test.Triangle">
+		<property name="type" value="Equilateral"></property>
+		<constructor-arg value="Equilateral"></constructor-arg>
+		<constructor-arg type="int" value="20"></constructor-arg>
+		<constructor-arg type="java.lang.String" value="20"></constructor-arg>
+		<constructor-arg index="0" value="20"></constructor-arg>
+		<constructor-arg index="1" value="20"></constructor-arg>
+		 <property name="pointA" ref="point1"/>
 		<property name="pointB">
 			<bean class="org.springpractice.test.Point">
 				<property name="x" value="-20"/>
 				<property name="y" value="0"/>
 			</bean>
 		</property>
-		<property name="pointC" ref="point3"/>  -->
-		<!-- <property name="points">
+		<property name="pointC" ref="point3"/> 
+		 <property name="points">
 			<list>
-				<ref bean="point1"/>
-				<ref bean="point2"/>
-				<ref bean="point3"/>
+				<ref bean="pointA"/>
+				<ref bean="pointB"/>
+				<ref bean="pointC"/>
 			</list>
-		</property> -->
+		</property>
 		
 		
+	</bean> -->
+	
+	<!-- <bean id="circle" class="org.springpractice.test.Circle">
+		<property name="center" ref="pointA"/>
+	</bean> -->
+	
+<!-- 	<bean id="triangle1" class="org.springpractice.test.Triangle" parent="parenttriangle">
+		<property name="pointB" ref="pointB"/>
+		<property name="pointC" ref="pointC"/>
+	</bean> -->
+	
+	<!-- <bean id="triangle1" class="org.springpractice.test.Triangle" parent="parenttriangle">
+		<property name="points">
+			<list merge="true">
+				<ref bean="pointB"/>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="triangle2" class="org.springpractice.test.Triangle" parent="parenttriangle">
+		<property name="pointB" ref="pointB"/>
+	</bean> -->
+	<bean id="center" class="org.springpractice.test.Point">
+		<property name="x" value="${pointA.pointX}"/>
+		<property name="y" value="${pointA.pointY}"/>
 	</bean>
 	
 	<bean id="pointA" class="org.springpractice.test.Point">
-		<property name="x" value="0"/>
-		<property name="y" value="0"/>
+		<qualifier value="circleRelated"/>
+		<property name="x" value="${pointA.pointX}"/>
+		<property name="y" value="${pointA.pointY}"/>
 	</bean>
 	
-	<!-- <bean id="pointB" class="org.springpractice.test.Point">
+	  <bean id="pointB" class="org.springpractice.test.Point">
 		<property name="x" value="-20"/>
 		<property name="y" value="0"/>
 	</bean>
@@ -45,8 +93,31 @@
 	<bean id="pointC" class="org.springpractice.test.Point">
 		<property name="x" value="20"/>
 		<property name="y" value="0"/>
-	</bean> -->
+	</bean>
 	
 	<alias name="triangle" alias="triangle-alias"/>
 	
+	<bean class="org.springpractice.test.DisplayNameBeanPostProcessor"/>
+	
+	<bean class="org.springpractice.test.MyBeanFactoryPP"/>
+	
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations" value="pointsconfig.properties"/>
+	</bean>
+	
+	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basenames">
+			<list>
+				<value>mymessages</value>
+			</list>
+		</property>
+	</bean>
+	
+	<context:annotation-config/>
+	
+	<!-- <bean class="org.springframework.beans.factory.annotation.RequiredAnnotationBeanPostProcessor"/> -->
+	
+	<!-- <bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"/> -->
+	
+	<context:component-scan base-package="org.springpractice.test"/>
 </beans>

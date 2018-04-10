@@ -1,4 +1,4 @@
-package org.springpractice.test;
+package org.springpractice.model;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -28,7 +28,25 @@ public class Circle implements Shape,ApplicationEventPublisherAware {
 	@Autowired
 	private MessageSource messageSource;
 	
+	private String name;
 	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+		System.out.println("Circle's setter called");
+		throw(new RuntimeException());
+		
+	}
+	
+	public String setNameAndReturn(String name) {
+		this.name = name;
+		System.out.println("Circle's setter called");
+		return name;
+		
+	}
 
 	public MessageSource getMessageSource() {
 		return messageSource;

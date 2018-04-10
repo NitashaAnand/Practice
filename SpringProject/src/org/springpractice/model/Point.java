@@ -1,4 +1,4 @@
-package org.springpractice.test;
+package org.springpractice.model;
 
 public class Point {
 	private int x;

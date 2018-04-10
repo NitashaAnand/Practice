@@ -1,4 +1,4 @@
-package org.springpractice.test;
+package org.springpractice.model;
 
 import java.util.List;
 
@@ -25,12 +25,21 @@ public class Triangle implements ApplicationContextAware,BeanNameAware,Initializ
 	
 	private List<Point> points;
 	
+	private String name;
+	
 	
 	
 	/*public ApplicationContext getContext() {
 		return context;
 	}*/
 
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 
 	public Point getPointA() {
 		return pointA;

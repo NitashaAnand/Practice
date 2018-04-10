@@ -1,20 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd 
+		http://www.springframework.org/schema/aop  http://www.springframework.org/schema/aop/spring-aop-3.0.xsd"
 	xmlns:context="http://www.springframework.org/schema/context">
 	
+	 <aop:aspectj-autoproxy proxy-target-class="true"/> 
 	
+	 <bean name="triangle" class="org.springpractice.model.Triangle">
+		<property name="name" value="Triangle name"></property>
+	</bean>
+	
+	<bean name="circle" class="org.springpractice.model.Circle">
+		<!-- <property name="name" value="Circle name"></property> -->
+	</bean>
+	
+	<bean name="shapeService" class="org.springpractice.service.ShapeService" autowire="byName"/>
+	
+	<bean name="loggingAspect" class="org.springpractice.aspect.LoggingAspect"/>
 
 <!-- <beans default-init-method="myInit"  default-destroy-method="cleanUp"> -->
 
-	<!-- <bean id="parenttriangle" class="org.springpractice.test.Triangle">
+	<!-- <bean id="parenttriangle" class="org.springpractice.model.Triangle">
 		<property name="pointA" ref="pointA"/>
 	</bean> -->
 	
 	
-	<!-- <bean id="parenttriangle" class="org.springpractice.test.Triangle" abstract="true">
+	<!-- <bean id="parenttriangle" class="org.springpractice.model.Triangle" abstract="true">
 		<property name="points">
 			<list>
 				<ref bean="pointA"/>
@@ -23,12 +37,12 @@
 	</bean> -->
 	
 	
-	<!-- <bean id="triangle" class="org.springpractice.test.Triangle" name="triangle-name" autowire="byName"> -->
-<!-- 	<bean id="triangle" class="org.springpractice.test.Triangle" name="triangle-name" autowire="byType"> -->
-	<!-- <bean id="triangle" class="org.springpractice.test.Triangle" name="triangle-name" autowire="constructor"> -->
-	<!-- <bean id="triangle" class="org.springpractice.test.Triangle" name="triangle-name" autowire="constructor" scope="singleton"> -->
-<!-- 	<bean id="triangle" class="org.springpractice.test.Triangle" name="triangle-name" > -->
-	<!-- <bean id="shape" class="org.springpractice.test.Triangle">
+	<!-- <bean id="triangle" class="org.springpractice.model.Triangle" name="triangle-name" autowire="byName"> -->
+<!-- 	<bean id="triangle" class="org.springpractice.model.Triangle" name="triangle-name" autowire="byType"> -->
+	<!-- <bean id="triangle" class="org.springpractice.model.Triangle" name="triangle-name" autowire="constructor"> -->
+	<!-- <bean id="triangle" class="org.springpractice.model.Triangle" name="triangle-name" autowire="constructor" scope="singleton"> -->
+<!-- 	<bean id="triangle" class="org.springpractice.model.Triangle" name="triangle-name" > -->
+	<!-- <bean id="shape" class="org.springpractice.model.Triangle">
 		<property name="type" value="Equilateral"></property>
 		<constructor-arg value="Equilateral"></constructor-arg>
 		<constructor-arg type="int" value="20"></constructor-arg>
@@ -37,7 +51,7 @@
 		<constructor-arg index="1" value="20"></constructor-arg>
 		 <property name="pointA" ref="point1"/>
 		<property name="pointB">
-			<bean class="org.springpractice.test.Point">
+			<bean class="org.springpractice.model.Point">
 				<property name="x" value="-20"/>
 				<property name="y" value="0"/>
 			</bean>
@@ -54,16 +68,16 @@
 		
 	</bean> -->
 	
-	<!-- <bean id="circle" class="org.springpractice.test.Circle">
+	<!-- <bean id="circle" class="org.springpractice.model.Circle">
 		<property name="center" ref="pointA"/>
 	</bean> -->
 	
-<!-- 	<bean id="triangle1" class="org.springpractice.test.Triangle" parent="parenttriangle">
+<!-- 	<bean id="triangle1" class="org.springpractice.model.Triangle" parent="parenttriangle">
 		<property name="pointB" ref="pointB"/>
 		<property name="pointC" ref="pointC"/>
 	</bean> -->
 	
-	<!-- <bean id="triangle1" class="org.springpractice.test.Triangle" parent="parenttriangle">
+	<!-- <bean id="triangle1" class="org.springpractice.model.Triangle" parent="parenttriangle">
 		<property name="points">
 			<list merge="true">
 				<ref bean="pointB"/>
@@ -71,35 +85,35 @@
 		</property>
 	</bean>
 	
-	<bean id="triangle2" class="org.springpractice.test.Triangle" parent="parenttriangle">
+	<bean id="triangle2" class="org.springpractice.model.Triangle" parent="parenttriangle">
 		<property name="pointB" ref="pointB"/>
 	</bean> -->
-	<bean id="center" class="org.springpractice.test.Point">
+	<!-- <bean id="center" class="org.springpractice.model.Point">
 		<property name="x" value="${pointA.pointX}"/>
 		<property name="y" value="${pointA.pointY}"/>
 	</bean>
 	
-	<bean id="pointA" class="org.springpractice.test.Point">
+	<bean id="pointA" class="org.springpractice.model.Point">
 		<qualifier value="circleRelated"/>
 		<property name="x" value="${pointA.pointX}"/>
 		<property name="y" value="${pointA.pointY}"/>
 	</bean>
 	
-	  <bean id="pointB" class="org.springpractice.test.Point">
+	  <bean id="pointB" class="org.springpractice.model.Point">
 		<property name="x" value="-20"/>
 		<property name="y" value="0"/>
 	</bean>
 	
-	<bean id="pointC" class="org.springpractice.test.Point">
+	<bean id="pointC" class="org.springpractice.model.Point">
 		<property name="x" value="20"/>
 		<property name="y" value="0"/>
 	</bean>
 	
 	<alias name="triangle" alias="triangle-alias"/>
 	
-	<bean class="org.springpractice.test.DisplayNameBeanPostProcessor"/>
+	<bean class="org.springpractice.model.DisplayNameBeanPostProcessor"/>
 	
-	<bean class="org.springpractice.test.MyBeanFactoryPP"/>
+	<bean class="org.springpractice.model.MyBeanFactoryPP"/>
 	
 	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="locations" value="pointsconfig.properties"/>
@@ -115,9 +129,9 @@
 	
 	<context:annotation-config/>
 	
-	<!-- <bean class="org.springframework.beans.factory.annotation.RequiredAnnotationBeanPostProcessor"/> -->
+	<bean class="org.springframework.beans.factory.annotation.RequiredAnnotationBeanPostProcessor"/>
 	
-	<!-- <bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"/> -->
+	<bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"/>
 	
-	<context:component-scan base-package="org.springpractice.test"/>
+	<context:component-scan base-package="org.springpractice.model"/> -->
 </beans>

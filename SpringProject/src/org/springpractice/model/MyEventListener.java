@@ -1,4 +1,4 @@
-package org.springpractice.test;
+package org.springpractice.model;
 
 import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ApplicationListener;

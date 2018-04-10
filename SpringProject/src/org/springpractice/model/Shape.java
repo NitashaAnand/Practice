@@ -1,4 +1,4 @@
-package org.springpractice.test;
+package org.springpractice.model;
 
 public interface Shape {
 	

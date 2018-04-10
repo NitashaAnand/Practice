@@ -1,4 +1,4 @@
-package org.springpractice.test;
+package org.springpractice.model;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;

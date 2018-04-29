@@ -11,7 +11,7 @@ import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springpractice.model.Circle;
 
-@Aspect
+//@Aspect
 public class LoggingAspect {
 	
 	//@Before("execution(public String getName())")
@@ -25,20 +25,20 @@ public class LoggingAspect {
 		System.out.println("Advice run. Get method called..");
 	}*/
 	
-		@Before("allCircleMethods()")
+	/*	@Before("allCircleMethods()")
 		public void LoggingAdvice(JoinPoint joinpoint)
 		{
 			//System.out.println(joinpoint.toString());
 			Circle circle=(Circle)joinpoint.getTarget();
 			
-		}
+		}*/
 	
-	@Before("allGetters()")
+	/*@Before("allGetters()")
 	//@Before("allCircleMethods()")
 	public void secondAdvice()
 	{
 		System.out.println("Second Advice executed..");
-	}
+	}*/
 	
 	/*@Before("args(String)")
 	public void StringArgumentMethod()
@@ -57,11 +57,11 @@ public class LoggingAspect {
 
 	//@Before("args(name)")
 	//@After("args(name)")
-	@AfterReturning(pointcut="args(name)",returning="returnString")
+	/*@AfterReturning(pointcut="args(name)",returning="returnString")
 	public void StringArgumentMethod(String name,String returnString)
 	{
 		System.out.println("A method that takes String argument has been called. The value is:"+name+"The output is:"+returnString);
-	}
+	}*/
 	
 	/*@AfterThrowing("args(name)")
 	public void exceptionAdvice(String name)
@@ -70,18 +70,20 @@ public class LoggingAspect {
 	}*/
 	
 	//@AfterThrowing("args(name)")
-	@AfterThrowing(pointcut="args(name)",throwing="ex")
+	/*@AfterThrowing(pointcut="args(name)",throwing="ex")
 	public void exceptionAdvice(String name,Exception ex)
 	{
 		System.out.println("An exception has been thrown."+ ex);
-	}
+	}*/
 	
-	@Around("allGetters()")
-	public void myAroundAdvice(ProceedingJoinPoint proceedingJoinPoint)
+	//@Around("allGetters()")
+	//@Around("@annotation(org.springpractice.aspect.Loggable)")
+	public Object myAroundAdvice(ProceedingJoinPoint proceedingJoinPoint)
 	{
+		Object returnValue=null;
 		try {
 			System.out.println("Before Advice");
-			proceedingJoinPoint.proceed();
+			returnValue=proceedingJoinPoint.proceed();
 			System.out.println("After Returning");
 		} catch (Throwable e) {
 			// TODO Auto-generated catch block
@@ -89,13 +91,19 @@ public class LoggingAspect {
 		}
 		
 		System.out.println("After Finally");
+		return returnValue;
 	}
 
 	
-	@Pointcut("execution(public * get*(..))")
-	public void allGetters(){}
+	/*@Pointcut("execution(public * get*(..))")
+	public void allGetters(){}*/
 	
-	//@Pointcut("execution(* org.springpractice.model.Circle.*(..))")
+	/*//@Pointcut("execution(* org.springpractice.model.Circle.*(..))")
 	@Pointcut("within(org.springpractice.model.Circle)")
-	public void allCircleMethods(){}
+	public void allCircleMethods(){}*/
+	
+	
+	public void loggingAdvice(){
+		System.out.println("Logging from the Advice");
+	}
 }

@@ -8,6 +8,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.io.FileSystemResource;
 import org.springpractice.model.Shape;
 import org.springpractice.model.Triangle;
+import org.springpractice.service.FactoryService;
 import org.springpractice.service.ShapeService;
 
 public class DrawingAppl {
@@ -22,8 +23,8 @@ public class DrawingAppl {
 		triangle.draw();*/
 		
 		//ApplicationContext context=new ClassPathXmlApplicationContext("spring.xml");
-		AbstractApplicationContext context=new ClassPathXmlApplicationContext("spring.xml");
-		context.registerShutdownHook();
+		/*AbstractApplicationContext context=new ClassPathXmlApplicationContext("spring.xml");
+		context.registerShutdownHook();*/
 		//Triangle triangle=(Triangle) context.getBean("triangle");
 		//Triangle triangle=(Triangle) context.getBean("triangle-alias");
 		//Triangle triangle=(Triangle) context.getBean("triangle-name");
@@ -35,11 +36,16 @@ public class DrawingAppl {
 		//shape.draw();
 		/*System.out.println(context.getMessage("greeting", null, "Default Greeting", null));*/
 		
-		ShapeService shapeService=context.getBean("shapeService",ShapeService.class);
-		shapeService.getCircle().setName("Dummy Name");
+		//ShapeService shapeService=context.getBean("shapeService",ShapeService.class);
+		//shapeService.getCircle().setName("Dummy Name");
+		//shapeService.getCircle();
 		//shapeService.getCircle().setNameAndReturn("Dummy Name");
-		System.out.println(shapeService.getCircle().getName());
+		//System.out.println(shapeService.getCircle().getName());
 		//System.out.println(shapeService.getTriangle().getName());
+		
+		FactoryService factoryService=new FactoryService();
+		ShapeService shapeService=(ShapeService)factoryService.getBean("shapeService");
+		shapeService.getCircle();
 		
 		
 	}

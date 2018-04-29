@@ -1,5 +1,6 @@
 package org.springpractice.service;
 
+import org.springpractice.aspect.Loggable;
 import org.springpractice.model.Circle;
 import org.springpractice.model.Triangle;
 
@@ -7,7 +8,9 @@ public class ShapeService {
 	
 	private Circle circle;
 	private Triangle triangle;
+	@Loggable
 	public Circle getCircle() {
+		System.out.println("Circle getter called");
 		return circle;
 	}
 	public void setCircle(Circle circle) {

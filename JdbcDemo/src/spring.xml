@@ -23,4 +23,19 @@
 		<property name="maxActive" value="5"/>
 	</bean>
 	
+	<bean id="namedParameterJdbcDaoImpl" class="org.jdbcpractice.dao.NamedParameterJdbcDaoImpl">
+		<property name="dataSource" ref="dataSource"/>
+	</bean>
+	
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate5.annotation.AnnotationSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"/>
+		<property name="packageToScan" value="org.jdbcpractice.model"/>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="dialect">org.hibernate.dialect.DerbyDialect</prop>
+			</props>
+		</property>
+	</bean>
+	
+	
 	</beans>
